@@ -16,8 +16,7 @@
         <p class="subtitle">Flujo actual y propuesta de evolución</p>
       </div>
       <p class="privacy-notice">
-        Esta página es pública. La información que guardes aquí se almacena solo en este navegador;
-        no agregues datos confidenciales.
+        Esta página es pública. No publiques información ni documentación confidencial.
       </p>
     </header>
 
@@ -53,7 +52,7 @@
         <div id="current-order-diagram" class="diagram-scroll">
           <svg class="flowchart" viewBox="0 0 1600 640" role="group" aria-labelledby="flow-title flow-description">
             <title id="flow-title">Flujo actual: generación de sugerencia de compra</title>
-            <desc id="flow-description">Cinco fuentes de datos se consultan vía Databricks. Un notebook de Python combina esos datos con reglas de proveedores y SKU en Excel, aplica el modelo matemático y genera un Excel de sugerencia de compra. Usa Tab y Enter para consultar cada bloque.</desc>
+            <desc id="flow-description">Cinco fuentes de datos se consultan vía Databricks. Un notebook de Python combina esos datos con reglas de proveedores y SKU en Excel, aplica el modelo matemático y genera un Excel de sugerencia de compra.</desc>
             <defs>
               <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
                 <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"></path>
@@ -88,62 +87,62 @@
               <text x="685" y="275" class="edge-label">Datos + reglas → notebook → modelo → Excel</text>
             </g>
 
-            <g class="node source-node" data-node="current-historical-receipts" role="button" tabindex="0" aria-label="Recepciones históricas">
+            <g class="node source-node">
               <rect x="55" y="95" width="240" height="60" rx="10"></rect>
               <text x="175" y="125">Recepciones históricas</text>
             </g>
-            <g class="node source-node" data-node="current-receipts" role="button" tabindex="0" aria-label="Recepciones">
+            <g class="node source-node">
               <rect x="55" y="195" width="240" height="60" rx="10"></rect>
               <text x="175" y="225">Recepciones</text>
             </g>
-            <g class="node source-node" data-node="current-stock" role="button" tabindex="0" aria-label="Maestro de stock">
+            <g class="node source-node">
               <rect x="55" y="295" width="240" height="60" rx="10"></rect>
               <text x="175" y="325">Maestro de stock</text>
             </g>
-            <g class="node source-node" data-node="current-materials" role="button" tabindex="0" aria-label="Maestro de materiales">
+            <g class="node source-node">
               <rect x="55" y="395" width="240" height="60" rx="10"></rect>
               <text x="175" y="425">Maestro de materiales</text>
             </g>
-            <g class="node source-node" data-node="current-suppliers" role="button" tabindex="0" aria-label="Maestro de proveedores">
+            <g class="node source-node">
               <rect x="55" y="495" width="240" height="60" rx="10"></rect>
               <text x="175" y="525">Maestro de proveedores</text>
             </g>
-            <g class="node app-node" data-node="current-databricks" role="button" tabindex="0" aria-label="Databricks: consulta y recuperación de datos">
+            <g class="node app-node">
               <rect x="400" y="300" width="220" height="80" rx="10"></rect>
               <text x="510" y="330">
                 <tspan x="510">Databricks</tspan>
                 <tspan x="510" dy="22">Consulta y recuperación de datos</tspan>
               </text>
             </g>
-            <g class="node app-node" data-node="current-supplier-rules" role="button" tabindex="0" aria-label="Excel: reglas de proveedores">
+            <g class="node app-node">
               <rect x="720" y="85" width="310" height="60" rx="10"></rect>
               <text x="875" y="105">
                 <tspan x="875">Excel</tspan>
                 <tspan x="875" dy="22">Reglas de proveedores</tspan>
               </text>
             </g>
-            <g class="node app-node" data-node="current-sku-rules" role="button" tabindex="0" aria-label="Excel: reglas de SKU">
+            <g class="node app-node">
               <rect x="720" y="160" width="310" height="60" rx="10"></rect>
               <text x="875" y="180">
                 <tspan x="875">Excel</tspan>
                 <tspan x="875" dy="22">Reglas de SKU</tspan>
               </text>
             </g>
-            <g class="node model-node" data-node="current-notebook" role="button" tabindex="0" aria-label="Notebook de Python conectado a Databricks">
+            <g class="node model-node">
               <rect x="720" y="355" width="310" height="80" rx="10"></rect>
               <text x="875" y="385">
                 <tspan x="875">Notebook de Python</tspan>
                 <tspan x="875" dy="22">Combina datos y reglas</tspan>
               </text>
             </g>
-            <g class="node model-node" data-node="current-model" role="button" tabindex="0" aria-label="Modelo matemático: cálculo de sugerencia">
+            <g class="node model-node">
               <rect x="720" y="490" width="310" height="65" rx="10"></rect>
               <text x="875" y="512">
                 <tspan x="875">Modelo matemático</tspan>
                 <tspan x="875" dy="22">Cálculo de sugerencia</tspan>
               </text>
             </g>
-            <g class="node destination-node" data-node="current-purchase-suggestion" role="button" tabindex="0" aria-label="Excel: sugerencia de compra, no es una orden de compra">
+            <g class="node destination-node">
               <rect x="1190" y="350" width="350" height="90" rx="10"></rect>
               <text x="1365" y="383">
                 <tspan x="1365">Excel de salida</tspan>
@@ -156,26 +155,6 @@
         </div>
       </section>
 
-      <aside class="details-panel" aria-labelledby="details-title" aria-live="polite">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Información del bloque</p>
-            <h2 id="details-title">Selecciona un bloque</h2>
-          </div>
-          <span id="save-status" class="save-status" role="status"></span>
-        </div>
-        <form id="details-form">
-          <label for="details-description">Descripción</label>
-          <textarea id="details-description" rows="3" disabled></textarea>
-          <label for="details-notes">Notas personales</label>
-          <textarea id="details-notes" rows="5" placeholder="Agrega notas para este bloque..." disabled></textarea>
-          <div class="form-actions">
-            <button id="save-button" type="submit" disabled>Guardar en este navegador</button>
-            <button id="clear-button" type="button" class="secondary-button" disabled>Borrar notas</button>
-          </div>
-        </form>
-        <p class="storage-note">Los cambios se guardan en el almacenamiento local de este navegador y no se comparten con otras personas.</p>
-      </aside>
     </main>
 
     <footer>

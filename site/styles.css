@@ -18,9 +18,7 @@ body {
 }
 
 .page-header,
-.section-heading,
-.panel-heading,
-.form-actions {
+.section-heading {
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -74,13 +72,12 @@ h2 {
 
 main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 20px;
 }
 
-.diagram-section,
-.details-panel {
+.diagram-section {
   border: 1px solid #dbe2ea;
   border-radius: 12px;
   background: #fff;
@@ -203,16 +200,6 @@ main {
   color: #92400e;
 }
 
-.text-button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #4338ca;
-  font-size: 0.86rem;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .stage-placeholder {
   display: flex;
   min-height: 145px;
@@ -295,11 +282,6 @@ main {
   font-size: 13px;
 }
 
-.flowchart .node {
-  cursor: pointer;
-  outline: none;
-}
-
 .flowchart .node rect,
 .flowchart .node circle {
   stroke-width: 2;
@@ -336,56 +318,6 @@ main {
   stroke: #f59e0b;
 }
 
-.flowchart .node:hover rect,
-.flowchart .node:hover circle,
-.flowchart .node:focus rect,
-.flowchart .node:focus circle {
-  stroke: #0f172a;
-  stroke-width: 4;
-  filter: drop-shadow(0 3px 4px rgb(15 23 42 / 18%));
-}
-
-.details-panel {
-  position: sticky;
-  top: 16px;
-  padding: 20px;
-}
-
-.panel-heading {
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.save-status {
-  max-width: 145px;
-  color: #166534;
-  font-size: 0.82rem;
-  text-align: right;
-}
-
-label {
-  display: block;
-  margin: 16px 0 6px;
-  font-size: 0.9rem;
-  font-weight: 650;
-}
-
-textarea {
-  display: block;
-  width: 100%;
-  resize: vertical;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  color: #172033;
-  font: inherit;
-  line-height: 1.45;
-}
-
-textarea:disabled {
-  background: #f8fafc;
-}
-
 button {
   padding: 9px 12px;
   border: 1px solid #3730a3;
@@ -398,24 +330,6 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.secondary-button {
-  border-color: #cbd5e1;
-  background: #fff;
-  color: #334155;
-}
-
-.form-actions {
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
-
-.storage-note,
 footer {
   margin: 16px 0 0;
   color: #64748b;
@@ -425,16 +339,6 @@ footer {
 
 footer {
   padding: 18px 4px;
-}
-
-@media (max-width: 1500px) {
-  main {
-    grid-template-columns: 1fr;
-  }
-
-  .details-panel {
-    position: static;
-  }
 }
 
 @media (max-width: 600px) {

@@ -18,7 +18,7 @@ Si una credencial se publica por error, revocarla/rotarla de inmediato y seguir 
 
 ## Publicación
 
-El repositorio es público: todo su contenido e historial es visible para cualquiera. GitHub Pages publica el sitio interactivo desde `site/`; no agregues allí ni al repositorio información confidencial, credenciales ni datos personales. Las notas del diagrama se guardan únicamente en el almacenamiento local del navegador y no se sincronizan con GitHub ni con otras personas.
+El repositorio es público: todo su contenido e historial es visible para cualquiera. GitHub Pages publica el sitio desde `site/`; no agregues allí ni al repositorio información confidencial, credenciales ni datos personales. La página permite navegar entre flujos y etapas. La documentación adicional para bloques particulares queda pendiente de definir; por ahora no hay panel de información ni edición de notas. Las notas guardadas anteriormente en el navegador no se borran.
 
 - [Abrir el diagrama interactivo](https://eblasiandreani.github.io/workspace-operativo/)
 - Los cambios en `site/` se publican automáticamente desde la rama `main` mediante GitHub Actions.
