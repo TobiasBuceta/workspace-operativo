@@ -1,0 +1,13 @@
+{
+  "name": "Vista previa privada del diagrama",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Diagrama interactivo WOS + YAS",
+      "onAutoForward": "openBrowser",
+      "visibility": "private"
+    }
+  },
+  "postStartCommand": "python3 -c \"import subprocess; subprocess.Popen(['python3', '-m', 'http.server', '8000', '--bind', '0.0.0.0', '--directory', 'site'], stdin=subprocess.DEVNULL, stdout=open('/tmp/workspace-operativo-preview.log', 'ab'), stderr=subprocess.STDOUT, start_new_session=True)\""
+}

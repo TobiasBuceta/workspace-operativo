@@ -17,8 +17,8 @@ Si una credencial se publica por error, revocarla/rotarla de inmediato y seguir 
 
 ## Publicación
 
-El repositorio es privado, pero el sitio publicado en GitHub Pages es público. Solo se publica el contenido de `site/`; no agregar ahí información confidencial ni datos reales. La página permite agregar notas que se guardan únicamente en el almacenamiento local del navegador y no se sincronizan con GitHub ni con otras personas.
+El repositorio es privado y GitHub Pages no está disponible con el plan actual sin hacerlo público o actualizar el plan. Por eso se configuró una vista previa privada en GitHub Codespaces. Solo se sirve la carpeta `site/`; las notas se guardan en el almacenamiento local del navegador y no se sincronizan con GitHub ni con otras personas.
 
-- [Abrir el diagrama interactivo](https://eblasiandreani.github.io/workspace-operativo/)
-- Para desplegarlo, configura GitHub Pages en **Settings → Pages → Build and deployment → GitHub Actions** y ejecuta **Deploy GitHub Pages** desde **Actions → Run workflow** para la primera publicación. Los cambios en `site/` se publican desde la rama `main`.
+- En GitHub, abre **Code → Codespaces → Create codespace on main**. Al iniciar, Codespaces arranca el servidor y abre el diagrama; si no se abre automáticamente, selecciona el puerto **8000** en la pestaña **Ports** y elige **Open in Browser**. El puerto está configurado como privado y solo deben poder acceder usuarios autorizados al repositorio.
+- El uso de Codespaces está sujeto a la disponibilidad, cuota y configuración de facturación de la cuenta.
 - El diagrama editable original permanece en [`diagrams/abastecimiento-wos-yas.md`](diagrams/abastecimiento-wos-yas.md).
