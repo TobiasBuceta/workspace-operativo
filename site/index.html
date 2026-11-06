@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Diagrama interactivo del flujo de abastecimiento WOS y Modelo YAS.">
-    <title>Flujo de abastecimiento · WOS + Modelo YAS</title>
+    <meta name="description" content="Flujos actual y propuesto de abastecimiento, organizados en tres etapas.">
+    <title>Abastecimiento · Workspace operativo</title>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
   </head>
@@ -12,8 +12,8 @@
     <header class="page-header">
       <div>
         <p class="eyebrow">Workspace operativo</p>
-        <h1>Flujo de abastecimiento</h1>
-        <p class="subtitle">WOS + Modelo YAS</p>
+        <h1>Abastecimiento</h1>
+        <p class="subtitle">Flujo actual y propuesta de evolución</p>
       </div>
       <p class="privacy-notice">
         Esta página es pública. La información que guardes aquí se almacena solo en este navegador;
@@ -25,12 +25,32 @@
       <section class="diagram-section" aria-labelledby="diagram-title">
         <div class="section-heading">
           <div>
-            <h2 id="diagram-title">Diagrama interactivo</h2>
-            <p>Selecciona un bloque para consultar o actualizar su información.</p>
+            <h2 id="diagram-title">Procesos de abastecimiento</h2>
+            <p>Consulta el proceso actual o revisa las etapas de la propuesta.</p>
           </div>
-          <span class="interaction-hint" aria-hidden="true">Desplaza horizontalmente · haz clic en un bloque</span>
+          <span class="interaction-hint">Selecciona un flujo y una etapa</span>
         </div>
-        <div class="diagram-scroll">
+        <nav class="flow-switch" aria-label="Tipo de flujo">
+          <button type="button" class="flow-button is-active" data-flow="current" aria-pressed="true">Flujo actual</button>
+          <button type="button" class="flow-button" data-flow="proposed" aria-pressed="false">Flujo propuesto</button>
+        </nav>
+        <nav class="stage-switch" aria-label="Etapas del flujo">
+          <button type="button" class="stage-button is-active" data-stage="1" aria-pressed="true">
+            <span class="stage-number">01</span>
+            <span>Generación de orden de compra</span>
+          </button>
+          <button type="button" class="stage-button" data-stage="2" aria-pressed="false">
+            <span class="stage-number">02</span>
+            <span>Facturación en SAP</span>
+          </button>
+          <button type="button" class="stage-button" data-stage="3" aria-pressed="false">
+            <span class="stage-number">03</span>
+            <span>Manejo de maestros</span>
+            <span class="stage-status">A definir</span>
+          </button>
+        </nav>
+        <div id="stage-overview" class="stage-overview" aria-live="polite"></div>
+        <div id="current-order-diagram" class="diagram-scroll">
           <svg class="flowchart" viewBox="0 0 1760 690" role="group" aria-labelledby="flow-title flow-description">
             <title id="flow-title">Flujo de abastecimiento WOS y Modelo YAS</title>
             <desc id="flow-description">Diagrama interactivo. Usa Tab para recorrer los bloques y Enter para abrir su información.</desc>
@@ -186,7 +206,7 @@
     </main>
 
     <footer>
-      <p>Flujo de referencia: validar interfaces y direcciones con el equipo técnico antes de usarlo como especificación.</p>
+      <p>Los flujos son de trabajo y revisión. Validar interfaces y direcciones con el equipo técnico antes de usarlos como especificación.</p>
     </footer>
   </body>
 </html>

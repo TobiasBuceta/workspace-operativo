@@ -1,6 +1,6 @@
 # Workspace operativo
 
-Espacio para organizar diagramas, indicadores de pedidos y proyectos, y guías de trabajo y automatización.
+Espacio público para organizar diagramas, indicadores de pedidos y proyectos, y guías de trabajo y automatización.
 
 ## Contenido
 

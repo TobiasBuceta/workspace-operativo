@@ -1,6 +1,6 @@
 # Flujo de abastecimiento: WOS + Modelo YAS
 
-Diagrama editable en Mermaid. GitHub lo renderiza en esta página; el archivo se mantiene privado junto con el repositorio.
+Diagrama editable en Mermaid. GitHub lo renderiza en esta página; este archivo y el repositorio son públicos.
 
 ```mermaid
 flowchart LR
