@@ -1,5 +1,7 @@
 # Flujo de abastecimiento: WOS + Modelo YAS
 
+Referencia anterior. No representa el [flujo actual relevado](abastecimiento-actual.md) ni una propuesta aprobada.
+
 Diagrama editable en Mermaid. GitHub lo renderiza en esta página; este archivo y el repositorio son públicos.
 
 ```mermaid

@@ -5,6 +5,7 @@ Espacio público para organizar diagramas, indicadores de pedidos y proyectos, y
 ## Contenido
 
 - [Diagrama de abastecimiento WOS + Modelo YAS](diagrams/abastecimiento-wos-yas.md)
+- [Flujo actual de abastecimiento](diagrams/abastecimiento-actual.md): datos, reglas en Excel y notebook de Python conectado a Databricks, hasta la sugerencia de compra.
 - [Guía para trabajar con agentes](playbooks/trabajo-con-agentes.md)
 - `projects/`: planes y documentación de proyectos.
 - `indicators/`: definiciones, consultas y documentación de indicadores. Mantener los datos de negocio en ubicaciones autorizadas y compartir aquí solo lo necesario.
@@ -21,4 +22,4 @@ El repositorio es público: todo su contenido e historial es visible para cualqu
 
 - [Abrir el diagrama interactivo](https://eblasiandreani.github.io/workspace-operativo/)
 - Los cambios en `site/` se publican automáticamente desde la rama `main` mediante GitHub Actions.
-- El diagrama editable original permanece en [`diagrams/abastecimiento-wos-yas.md`](diagrams/abastecimiento-wos-yas.md).
+- El flujo actual editable está en [`diagrams/abastecimiento-actual.md`](diagrams/abastecimiento-actual.md). El diagrama anterior WOS + YAS se conserva como referencia y no representa el flujo actual relevado.

@@ -1,7 +1,7 @@
 const details = {
   "current-stage-1": {
     title: "Flujo actual · Generación de orden de compra",
-    description: "El diagrama existente documenta el abastecimiento sugerido por Modelo YAS, la administración de reglas y variables en WOS, y la confirmación de compra."
+    description: "Un notebook de Python conectado a Databricks recupera recepciones históricas, recepciones, stock, materiales y proveedores. Combina estos datos con reglas de proveedores y SKU en Excel y aplica el modelo matemático para generar un Excel de sugerencia de compra. Falta relevar la continuación hasta la orden de compra."
   },
   "current-stage-2": {
     title: "Flujo actual · Facturación en SAP",
@@ -23,61 +23,49 @@ const details = {
     title: "Flujo propuesto · Manejo de maestros",
     description: "Etapa pendiente de pulir y presentar como propuesta a gerencia."
   },
-  T: {
-    title: "Maestro: Tiendas",
-    description: "Datos maestros de tiendas que alimentan la base de datos de abastecimiento."
+  "current-historical-receipts": {
+    title: "Recepciones históricas",
+    description: "Fuente de recepciones históricas consultada mediante Databricks para alimentar el modelo matemático."
   },
-  P: {
-    title: "Maestro: Proveedores",
-    description: "Datos maestros de proveedores que alimentan la base de datos de abastecimiento."
+  "current-receipts": {
+    title: "Recepciones",
+    description: "Fuente de recepciones consultada mediante Databricks. Se representa por separado de las recepciones históricas."
   },
-  M: {
-    title: "Maestro: Materiales",
-    description: "Datos maestros de materiales que alimentan la base de datos de abastecimiento."
+  "current-stock": {
+    title: "Maestro de stock",
+    description: "Datos de stock recuperados mediante Databricks para el cálculo de la sugerencia de compra."
   },
-  S: {
-    title: "Inventario: Stock SCE",
-    description: "El inventario alimenta la base de datos y también el cálculo de abastecimiento del Modelo YAS."
+  "current-materials": {
+    title: "Maestro de materiales",
+    description: "Datos maestros de materiales recuperados mediante Databricks para el modelo matemático."
   },
-  DB: {
-    title: "Base de datos",
-    description: "Concentra información de proveedores, materiales y tiendas. El diagrama indica que no hay integración directa con el cálculo YAS."
+  "current-suppliers": {
+    title: "Maestro de proveedores",
+    description: "Datos maestros de proveedores recuperados mediante Databricks. Esta fuente es distinta de las reglas de proveedores mantenidas en Excel."
   },
-  V: {
-    title: "Parámetros: Variables del modelo",
-    description: "Variables usadas por el Modelo YAS para calcular el abastecimiento sugerido. WOS permite administrarlas."
+  "current-databricks": {
+    title: "Databricks",
+    description: "El notebook de Python se conecta a Databricks para recuperar las cinco fuentes de datos mencionadas. No se ha definido dónde se originan o almacenan esas fuentes."
   },
-  R: {
-    title: "Negocio: Reglas de abastecimiento",
-    description: "Reglas de negocio aplicadas por el Modelo YAS. WOS permite administrarlas."
+  "current-supplier-rules": {
+    title: "Excel · Reglas de proveedores",
+    description: "Reglas de proveedores mantenidas en Excel que el notebook combina con la información recuperada de Databricks."
   },
-  CALC: {
-    title: "Calcular abastecimiento sugerido",
-    description: "El Modelo YAS calcula una sugerencia a partir de las variables, las reglas y el stock SCE."
+  "current-sku-rules": {
+    title: "Excel · Reglas de SKU",
+    description: "Reglas de SKU mantenidas en Excel que el notebook combina con los datos y las reglas de proveedores."
   },
-  AR: {
-    title: "Administración: ABM de Reglas",
-    description: "WOS permite administrar reglas de abastecimiento; estas se usan en el Modelo YAS."
+  "current-notebook": {
+    title: "Notebook de Python",
+    description: "Conectado a Databricks, recupera los datos y los combina con las reglas de proveedores y SKU en Excel para aplicar el modelo matemático."
   },
-  AV: {
-    title: "Administración: ABM de Variables",
-    description: "WOS permite administrar variables del Modelo YAS. El alta o edición de variables se refleja en el modelo."
+  "current-model": {
+    title: "Modelo matemático",
+    description: "Cálculo aplicado mediante el notebook de Python sobre los datos recuperados y las reglas en Excel. Se representa como un paso lógico, no como un sistema independiente."
   },
-  GRID: {
-    title: "Grilla de resultados",
-    description: "Presenta tienda, proveedor, material y cantidad sugerida. Desde WOS se puede solicitar un recálculo."
-  },
-  CONF: {
-    title: "Confirmar compra",
-    description: "La confirmación de compra deriva los destinos SAP y SCE."
-  },
-  SAP: {
-    title: "SAP",
-    description: "Destino de la compra confirmada."
-  },
-  SCE: {
-    title: "SCE",
-    description: "Destino de la compra confirmada; también provee el dato de stock al flujo."
+  "current-purchase-suggestion": {
+    title: "Excel · Sugerencia de compra",
+    description: "Archivo Excel generado como resultado del cálculo. Es una sugerencia de compra, no una orden de compra. Su revisión y la posterior generación de la orden todavía no se han relevado."
   }
 };
 
@@ -141,13 +129,11 @@ function updateStage() {
   orderDiagram.hidden = !isCurrentOrderDiagram;
 
   const status = isCurrentOrderDiagram
-    ? "Proceso documentado"
+    ? "Documentado hasta la sugerencia de compra"
     : activeFlow === "proposed" && activeStage === "3"
       ? "Pendiente de pulir y presentar a gerencia"
       : "Pendiente de relevar y definir";
-  const summary = isCurrentOrderDiagram
-    ? "Referencia actual: Modelo YAS calcula el abastecimiento sugerido, WOS administra reglas y variables, y la compra se confirma desde la grilla. Selecciona un bloque para ver o editar su información."
-    : stage.description;
+  const summary = stage.description;
 
   stageOverview.replaceChildren();
   const statusBadge = document.createElement("span");
