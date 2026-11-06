@@ -20,5 +20,5 @@ Si una credencial se publica por error, revocarla/rotarla de inmediato y seguir 
 El repositorio es privado, pero el sitio publicado en GitHub Pages es público. Solo se publica el contenido de `site/`; no agregar ahí información confidencial ni datos reales. La página permite agregar notas que se guardan únicamente en el almacenamiento local del navegador y no se sincronizan con GitHub ni con otras personas.
 
 - [Abrir el diagrama interactivo](https://eblasiandreani.github.io/workspace-operativo/)
-- Para desplegarlo, configura GitHub Pages en **Settings → Pages → Build and deployment → GitHub Actions**. Los cambios en `site/` se publican desde la rama `main`.
+- Para desplegarlo, configura GitHub Pages en **Settings → Pages → Build and deployment → GitHub Actions** y ejecuta **Deploy GitHub Pages** desde **Actions → Run workflow** para la primera publicación. Los cambios en `site/` se publican desde la rama `main`.
 - El diagrama editable original permanece en [`diagrams/abastecimiento-wos-yas.md`](diagrams/abastecimiento-wos-yas.md).
