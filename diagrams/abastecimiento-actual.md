@@ -39,7 +39,22 @@ El notebook de Python está conectado a Databricks para recuperar la informació
 
 ## Etapa 2: facturación en SAP
 
-Pendiente de relevar y definir.
+La orden de compra llega a SAP de forma indirecta: la API de sugerencia la envía a la API de abastecimiento, que crea la ASN en SCE/WMS. La integración de almacenes escucha los eventos de la ASN y los publica en SAP a través de SAP PO: alta de la OC (Tipo 1) al crearse la ASN y recepción (Tipo 2) al verificarse.
+
+```mermaid
+flowchart LR
+    SUG[API de sugerencia] -->|OC| ABA[API de abastecimiento]
+    ABA -->|OC| WMS[SCE / WMS: crea la ASN]
+    WMS -->|Evento ASN creada / verificada| SUS[Suscriptor de novedades]
+    SUS -->|Guarda| BD[(Base de novedades)]
+    SUS --> PUB[Publicador de novedades]
+    PUB -->|Lee y actualiza| BD
+    PUB -->|Pide URL y credenciales| CFG[API de configuración]
+    PUB -->|Tipo 1 / Tipo 2| PO[SAP PO]
+    PO --> SAP[SAP]
+```
+
+Mensaje a SAP, reglas del publicador y propuesta de envío directo desde la API de sugerencia: [Facturación en SAP](facturacion-sap.md).
 
 ## Etapa 3: manejo de maestros
 

@@ -153,6 +153,244 @@
             <text x="1190" y="505" class="edge-label">Continuación del proceso pendiente de relevar.</text>
           </svg>
         </div>
+        <div id="current-billing-diagram" class="diagram-scroll" hidden>
+          <svg class="flowchart" viewBox="0 0 1600 700" role="group" aria-labelledby="billing-title billing-description">
+            <title id="billing-title">Flujo actual: publicación de la orden de compra en SAP</title>
+            <desc id="billing-description">La API de sugerencia envía la orden de compra a la API de abastecimiento, que crea la ASN en SCE/WMS. El WMS emite el evento de ASN; un suscriptor lo guarda en la base de novedades y llama al publicador, que obtiene el destino y las credenciales de la API de configuración y envía el mensaje a SAP vía SAP PO.</desc>
+            <defs>
+              <marker id="arrow-billing" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"></path>
+              </marker>
+            </defs>
+
+            <g class="group app-group">
+              <rect x="20" y="30" width="740" height="190" rx="14"></rect>
+              <text x="40" y="65" class="group-title">Abastecimiento</text>
+            </g>
+            <g class="group source-group">
+              <rect x="840" y="30" width="740" height="190" rx="14"></rect>
+              <text x="860" y="65" class="group-title">Almacén · SCE / WMS</text>
+            </g>
+            <g class="group model-group">
+              <rect x="20" y="300" width="740" height="370" rx="14"></rect>
+              <text x="40" y="335" class="group-title">Integración almacenes → SAP</text>
+            </g>
+            <g class="group destination-group">
+              <rect x="840" y="300" width="740" height="190" rx="14"></rect>
+              <text x="860" y="335" class="group-title">SAP</text>
+            </g>
+
+            <g class="edges" aria-hidden="true">
+              <path d="M350 140 H430" marker-end="url(#arrow-billing)"></path>
+              <path d="M730 140 H870" marker-end="url(#arrow-billing)"></path>
+              <path d="M1170 140 H1250" marker-end="url(#arrow-billing)"></path>
+              <path d="M1400 185 V260 H200 V365" marker-end="url(#arrow-billing)"></path>
+              <path d="M350 410 H430" marker-end="url(#arrow-billing)"></path>
+              <path d="M730 400 H870" marker-end="url(#arrow-billing)"></path>
+              <path d="M870 430 H730" class="dashed" marker-end="url(#arrow-billing)"></path>
+              <path d="M1170 410 H1250" marker-end="url(#arrow-billing)"></path>
+              <path d="M200 455 V545" class="dashed" marker-end="url(#arrow-billing)"></path>
+              <path d="M460 455 V500 H320 V545" class="dashed" marker-end="url(#arrow-billing)"></path>
+              <path d="M580 455 V545" class="dashed" marker-end="url(#arrow-billing)"></path>
+              <text x="390" y="128" class="edge-label" text-anchor="middle">OC</text>
+              <text x="800" y="128" class="edge-label" text-anchor="middle">OC</text>
+              <text x="1210" y="128" class="edge-label" text-anchor="middle">Emite</text>
+              <text x="800" y="250" class="edge-label" text-anchor="middle">Evento ASN creada / verificada (Kafka)</text>
+              <text x="390" y="398" class="edge-label" text-anchor="middle">HTTP</text>
+              <text x="800" y="388" class="edge-label" text-anchor="middle">Mensaje</text>
+              <text x="800" y="452" class="edge-label" text-anchor="middle">Respuesta</text>
+              <text x="190" y="505" class="edge-label" text-anchor="end">Guarda</text>
+              <text x="330" y="490" class="edge-label">Lee y actualiza</text>
+              <text x="590" y="505" class="edge-label">Destino SAP</text>
+            </g>
+
+            <g class="node app-node">
+              <rect x="50" y="95" width="300" height="90" rx="10"></rect>
+              <text x="200" y="129">
+                <tspan x="200">API de sugerencia</tspan>
+                <tspan x="200" dy="22">Genera la OC y la envía</tspan>
+              </text>
+            </g>
+            <g class="node app-node">
+              <rect x="430" y="95" width="300" height="90" rx="10"></rect>
+              <text x="580" y="129">
+                <tspan x="580">API de abastecimiento</tspan>
+                <tspan x="580" dy="22">Recibe la OC (202)</tspan>
+              </text>
+            </g>
+            <g class="node source-node">
+              <rect x="870" y="95" width="300" height="90" rx="10"></rect>
+              <text x="1020" y="129">
+                <tspan x="1020">SCE / WMS</tspan>
+                <tspan x="1020" dy="22">Crea la ASN</tspan>
+              </text>
+            </g>
+            <g class="node source-node">
+              <rect x="1250" y="95" width="300" height="90" rx="10"></rect>
+              <text x="1400" y="129">
+                <tspan x="1400">Evento de ASN</tspan>
+                <tspan x="1400" dy="22">Creada · Verificada</tspan>
+              </text>
+            </g>
+            <g class="node model-node">
+              <rect x="50" y="365" width="300" height="90" rx="10"></rect>
+              <text x="200" y="399">
+                <tspan x="200">Suscriptor de novedades</tspan>
+                <tspan x="200" dy="22">Escucha y guarda el evento</tspan>
+              </text>
+            </g>
+            <g class="node model-node">
+              <rect x="430" y="365" width="300" height="90" rx="10"></rect>
+              <text x="580" y="399">
+                <tspan x="580">Publicador de novedades</tspan>
+                <tspan x="580" dy="22">Arma el mensaje para SAP</tspan>
+              </text>
+            </g>
+            <g class="node source-node">
+              <rect x="50" y="545" width="300" height="90" rx="10"></rect>
+              <text x="200" y="579">
+                <tspan x="200">Base de novedades</tspan>
+                <tspan x="200" dy="22">PENDIENTE → ACEPTADO</tspan>
+              </text>
+            </g>
+            <g class="node source-node">
+              <rect x="430" y="545" width="300" height="90" rx="10"></rect>
+              <text x="580" y="579">
+                <tspan x="580">API de configuración</tspan>
+                <tspan x="580" dy="22">URL y credenciales de SAP</tspan>
+              </text>
+            </g>
+            <g class="node destination-node">
+              <rect x="870" y="365" width="300" height="90" rx="10"></rect>
+              <text x="1020" y="399">
+                <tspan x="1020">SAP PO</tspan>
+                <tspan x="1020" dy="22">Interfaz REST · Basic auth</tspan>
+              </text>
+            </g>
+            <g class="node destination-node">
+              <rect x="1250" y="365" width="300" height="90" rx="10"></rect>
+              <text x="1400" y="399">
+                <tspan x="1400">SAP</tspan>
+                <tspan x="1400" dy="22">OC (Tipo 1) · Recepción (Tipo 2)</tspan>
+              </text>
+            </g>
+
+            <text x="870" y="530" class="group-title">Reglas del publicador</text>
+            <text x="870" y="558" class="edge-label">• Tipo 1 · Alta de OC: se publica al crearse la ASN.</text>
+            <text x="870" y="582" class="edge-label">• Tipo 2 · Recepción: se publica al verificarse la ASN.</text>
+            <text x="870" y="606" class="edge-label">• Notas de crédito (contrato DV): no se envían a SAP.</text>
+            <text x="870" y="630" class="edge-label">• Novedad ya aceptada: no se reenvía.</text>
+            <text x="870" y="654" class="edge-label">• Error de SAP: el publicador responde 502 con el motivo.</text>
+          </svg>
+        </div>
+        <div id="proposed-billing-diagram" class="diagram-scroll" hidden>
+          <svg class="flowchart" viewBox="0 0 1600 640" role="group" aria-labelledby="proposal-title proposal-description">
+            <title id="proposal-title">Flujo propuesto: envío directo de la orden de compra a SAP</title>
+            <desc id="proposal-description">La API de sugerencia envía la orden de compra directo a SAP (Tipo 1) y guarda la respuesta. El envío a la API de abastecimiento y SCE/WMS se mantiene; almacenes solo publica la recepción (Tipo 2) y deja de publicar el alta de estas órdenes.</desc>
+            <defs>
+              <marker id="arrow-proposal" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"></path>
+              </marker>
+            </defs>
+
+            <g class="group app-group">
+              <rect x="20" y="30" width="740" height="190" rx="14"></rect>
+              <text x="40" y="65" class="group-title">API de sugerencia de abastecimiento</text>
+            </g>
+            <g class="group destination-group">
+              <rect x="840" y="30" width="740" height="190" rx="14"></rect>
+              <text x="860" y="65" class="group-title">SAP</text>
+            </g>
+            <g class="group source-group">
+              <rect x="20" y="270" width="1180" height="190" rx="14"></rect>
+              <text x="40" y="305" class="group-title">Almacenes · sin cambios salvo la regla nueva</text>
+            </g>
+
+            <g class="edges" aria-hidden="true">
+              <path d="M350 140 H430" marker-end="url(#arrow-proposal)"></path>
+              <path d="M730 130 H870" marker-end="url(#arrow-proposal)"></path>
+              <path d="M870 160 H730" class="dashed" marker-end="url(#arrow-proposal)"></path>
+              <path d="M1170 140 H1250" marker-end="url(#arrow-proposal)"></path>
+              <path d="M200 185 V335" marker-end="url(#arrow-proposal)"></path>
+              <path d="M350 380 H430" marker-end="url(#arrow-proposal)"></path>
+              <path d="M730 380 H870" marker-end="url(#arrow-proposal)"></path>
+              <path d="M1020 335 V185" marker-end="url(#arrow-proposal)"></path>
+              <path d="M1250 380 H1170" class="dashed"></path>
+              <text x="390" y="128" class="edge-label" text-anchor="middle">OC</text>
+              <text x="800" y="118" class="edge-label" text-anchor="middle">Tipo 1</text>
+              <text x="800" y="182" class="edge-label" text-anchor="middle">Respuesta</text>
+              <text x="210" y="250" class="edge-label">OC (igual que hoy)</text>
+              <text x="390" y="368" class="edge-label" text-anchor="middle">OC</text>
+              <text x="800" y="368" class="edge-label" text-anchor="middle">Eventos ASN</text>
+              <text x="1030" y="250" class="edge-label">Tipo 2 (recepción)</text>
+            </g>
+
+            <g class="node app-node">
+              <rect x="50" y="95" width="300" height="90" rx="10"></rect>
+              <text x="200" y="129">
+                <tspan x="200">Generación de la OC</tspan>
+                <tspan x="200" dy="22">Igual que hoy</tspan>
+              </text>
+            </g>
+            <g class="node app-node highlight">
+              <rect x="430" y="95" width="300" height="90" rx="10"></rect>
+              <text x="580" y="129">
+                <tspan x="580">Envío directo a SAP</tspan>
+                <tspan x="580" dy="22">Nuevo · guarda la respuesta</tspan>
+              </text>
+            </g>
+            <g class="node destination-node">
+              <rect x="870" y="95" width="300" height="90" rx="10"></rect>
+              <text x="1020" y="129">
+                <tspan x="1020">SAP PO</tspan>
+                <tspan x="1020" dy="22">Interfaz REST · Basic auth</tspan>
+              </text>
+            </g>
+            <g class="node destination-node">
+              <rect x="1250" y="95" width="300" height="90" rx="10"></rect>
+              <text x="1400" y="129">
+                <tspan x="1400">SAP</tspan>
+                <tspan x="1400" dy="22">OC (Tipo 1) · Recepción (Tipo 2)</tspan>
+              </text>
+            </g>
+            <g class="node source-node">
+              <rect x="50" y="335" width="300" height="90" rx="10"></rect>
+              <text x="200" y="369">
+                <tspan x="200">API de abastecimiento</tspan>
+                <tspan x="200" dy="22">Recibe la OC (202)</tspan>
+              </text>
+            </g>
+            <g class="node source-node">
+              <rect x="430" y="335" width="300" height="90" rx="10"></rect>
+              <text x="580" y="369">
+                <tspan x="580">SCE / WMS</tspan>
+                <tspan x="580" dy="22">Crea y recibe la ASN</tspan>
+              </text>
+            </g>
+            <g class="node model-node">
+              <rect x="870" y="335" width="300" height="90" rx="10"></rect>
+              <text x="1020" y="369">
+                <tspan x="1020">Suscriptor + publicador</tspan>
+                <tspan x="1020" dy="22">Solo recepción (Tipo 2)</tspan>
+              </text>
+            </g>
+            <g class="node note">
+              <rect x="1250" y="335" width="300" height="90" rx="10"></rect>
+              <text x="1400" y="369">
+                <tspan x="1400">Regla nueva en almacenes</tspan>
+                <tspan x="1400" dy="22">No publicar Tipo 1 de estas OC</tspan>
+              </text>
+            </g>
+
+            <text x="50" y="505" class="group-title">Pendiente de definir con SAP y almacenes</text>
+            <text x="50" y="535" class="edge-label">• Pedido: debe coincidir con el que usa la recepción (Tipo 2).</text>
+            <text x="50" y="560" class="edge-label">• Cantidad en bultos o unidades; formato de Proveedor y ASN.</text>
+            <text x="50" y="585" class="edge-label">• ASN rechazada en el WMS: qué hacer con la OC ya creada en SAP.</text>
+            <text x="870" y="535" class="edge-label">• Reintentos y monitoreo propios en la API de sugerencia.</text>
+            <text x="870" y="560" class="edge-label">• Usuario técnico de SAP y acceso de red a SAP PO.</text>
+            <text x="870" y="585" class="edge-label">• Orden de envío SAP / WMS y qué hacer si falla uno.</text>
+          </svg>
+        </div>
       </section>
 
     </main>

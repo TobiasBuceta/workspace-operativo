@@ -1,14 +1,37 @@
 const stageDescriptions = {
   "current-stage-1": "Un notebook de Python conectado a Databricks recupera recepciones históricas, recepciones, stock, materiales y proveedores. Combina estos datos con reglas de proveedores y SKU en Excel y aplica el modelo matemático para generar un Excel de sugerencia de compra. Falta relevar la continuación hasta la orden de compra.",
-  "current-stage-2": "Etapa pendiente de relevar. Falta documentar el proceso actual de facturación en SAP.",
+  "current-stage-2": "La orden de compra llega a SAP de forma indirecta. La API de sugerencia la envía a la API de abastecimiento, que crea la ASN en SCE/WMS. La integración de almacenes escucha los eventos de la ASN, guarda la novedad y la publica en SAP a través de SAP PO: al crearse la ASN envía el alta de la OC (Tipo 1) y al verificarse, la recepción (Tipo 2).",
   "current-stage-3": "Etapa pendiente de relevar y ordenar antes de definir una propuesta para gerencia.",
   "proposed-stage-1": "Propuesta pendiente de definición para la generación de órdenes de compra.",
-  "proposed-stage-2": "Propuesta pendiente de definición para la facturación en SAP.",
+  "proposed-stage-2": "La API de sugerencia envía el alta de la OC (Tipo 1) directo a SAP PO al generarla y guarda la respuesta, sin depender de la ASN ni de almacenes. El envío a SCE/WMS se mantiene: la recepción (Tipo 2) sigue saliendo de almacenes, que deja de publicar el Tipo 1 de estas órdenes para evitar duplicados.",
   "proposed-stage-3": "Etapa pendiente de pulir y presentar como propuesta a gerencia."
 };
 
+const billingDetailLink = {
+  href: "https://github.com/eblasiAndreani/workspace-operativo/blob/main/diagrams/facturacion-sap.md",
+  text: "Ver detalle del flujo y del mensaje a SAP"
+};
+
+const stageLinks = {
+  "current-stage-2": billingDetailLink,
+  "proposed-stage-2": billingDetailLink
+};
+
+const stageStatuses = {
+  "current-stage-1": { text: "Documentado hasta la sugerencia de compra", documented: true },
+  "current-stage-2": { text: "Documentado hasta el registro en SAP", documented: true },
+  "proposed-stage-2": { text: "Propuesta en definición", documented: false },
+  "proposed-stage-3": { text: "Pendiente de pulir y presentar a gerencia", documented: false }
+};
+
+const defaultStatus = { text: "Pendiente de relevar y definir", documented: false };
+
 const stageOverview = document.querySelector("#stage-overview");
-const orderDiagram = document.querySelector("#current-order-diagram");
+const stageDiagrams = {
+  "current-stage-1": document.querySelector("#current-order-diagram"),
+  "current-stage-2": document.querySelector("#current-billing-diagram"),
+  "proposed-stage-2": document.querySelector("#proposed-billing-diagram")
+};
 const flowButtons = document.querySelectorAll("[data-flow]");
 const stageButtons = document.querySelectorAll("[data-stage]");
 let activeFlow = "current";
@@ -22,30 +45,38 @@ const stageNames = {
 
 function updateStage() {
   const stageId = `${activeFlow}-stage-${activeStage}`;
-  const isCurrentOrderDiagram = activeFlow === "current" && activeStage === "1";
+  const activeDiagram = stageDiagrams[stageId];
+  const status = stageStatuses[stageId] || defaultStatus;
+  const link = stageLinks[stageId];
 
   stageButtons.forEach((button) => {
     const isActive = button.dataset.stage === activeStage;
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
-  orderDiagram.hidden = !isCurrentOrderDiagram;
-
-  const status = isCurrentOrderDiagram
-    ? "Documentado hasta la sugerencia de compra"
-    : activeFlow === "proposed" && activeStage === "3"
-      ? "Pendiente de pulir y presentar a gerencia"
-      : "Pendiente de relevar y definir";
+  Object.values(stageDiagrams).forEach((diagram) => {
+    diagram.hidden = diagram !== activeDiagram;
+  });
 
   stageOverview.replaceChildren();
   const statusBadge = document.createElement("span");
-  statusBadge.className = isCurrentOrderDiagram ? "stage-badge documented" : "stage-badge pending";
-  statusBadge.textContent = status;
+  statusBadge.className = status.documented ? "stage-badge documented" : "stage-badge pending";
+  statusBadge.textContent = status.text;
   const summaryText = document.createElement("p");
   summaryText.textContent = stageDescriptions[stageId];
   stageOverview.append(statusBadge, summaryText);
 
-  if (!isCurrentOrderDiagram) {
+  if (link) {
+    const detailLink = document.createElement("a");
+    detailLink.className = "stage-link";
+    detailLink.href = link.href;
+    detailLink.target = "_blank";
+    detailLink.rel = "noopener";
+    detailLink.textContent = link.text;
+    stageOverview.append(detailLink);
+  }
+
+  if (!activeDiagram) {
     const placeholder = document.createElement("div");
     placeholder.className = "stage-placeholder";
     const icon = document.createElement("span");
