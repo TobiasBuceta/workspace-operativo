@@ -261,6 +261,11 @@ main {
   stroke: #4f46e5;
 }
 
+.flowchart .destination-group rect {
+  fill: #fffbeb;
+  stroke: #f59e0b;
+}
+
 .flowchart .group-title {
   fill: #334155;
   font-size: 16px;
@@ -316,6 +321,23 @@ main {
 .flowchart .destination-node circle {
   fill: #fef3c7;
   stroke: #f59e0b;
+}
+
+.flowchart .highlight rect {
+  fill: #c7d2fe;
+  stroke-width: 3;
+}
+
+.flowchart .note rect {
+  fill: #fffbeb;
+  stroke: #d97706;
+  stroke-dasharray: 6 5;
+}
+
+.stage-link {
+  color: #4338ca;
+  font-size: 0.88rem;
+  font-weight: 600;
 }
 
 button {
